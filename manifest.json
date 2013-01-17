@@ -3,13 +3,19 @@
 	"name": "Chrome Headers",
 	"description": "Alter your HTTP request headers on the fly",
 	"version": "1.0",
+	"default_locale": "en",
 
 	"permissions": [
+		"webRequestBlocking",
 		"*://*/"
 	],
 
 	"browser_action": {
-		"default_icon": "./resources/icon.png",
+		"default_icon": "./resources/images/icon.png",
 		"default_popup": "./views/popup.html"
+	},
+
+	"background": {
+		"scripts": ["/actions/headers.js"]
 	}
 }

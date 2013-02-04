@@ -5,6 +5,8 @@
 	"version": "1.0",
 	"default_locale": "en",
 
+	"options_page": "/views/options.html",
+
 	"permissions": [
 		"webRequestBlocking",
 		"*://*/"
@@ -12,7 +14,7 @@
 
 	"browser_action": {
 		"default_icon": "./resources/images/icon.png",
-		"default_popup": "./views/popup.html"
+		"default_popup": "/views/popup.html"
 	},
 
 	"background": {

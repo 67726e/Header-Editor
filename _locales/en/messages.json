@@ -1,5 +1,37 @@
 {
+	"about": {
+		"message": "About"
+	},
+
+	"aboutAuthor": {
+		"message": "This extension was written by <a href='http://hexcoder.us/' target='_blank'>Glenn Nelson</a>. You can also follow him on Twitter <a href='https://twitter.com/67726e' target='_blank'/>@67726e</a>."
+	},
+
+	"aboutExtension": {
+		"message": "Chrome Headers is a extension that allows you to easily insert HTTP headers your requests."
+	},
+
+	"aboutSupport": {
+		"message": "For questions, issues, or feature requests, please see the Chrome Headers' <a href='https://github.com/67726e/Chrome-Headers' target='_blank'>GitHub repository</a>."
+	},
+
+	"add": {
+		"message": "Add"
+	},
+
+	"header": {
+		"message": "Header"
+	},
+
+	"headers": {
+		"message": "Headers"
+	},
+
 	"title": {
 		"message": "Chrome Headers"
+	},
+
+	"value": {
+		"message": "Value"
 	}
 }

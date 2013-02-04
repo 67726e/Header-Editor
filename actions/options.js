@@ -14,10 +14,10 @@
 		var aboutLink = document.getElementById("options-about");
 
 		// Insert i18n text
-		document.getElementById("options-title").innerHTML = chrome.i18n.getMessage("title");
-		headersLink.innerHTML = chrome.i18n.getMessage("headers");
-		aboutLink.innerHTML = chrome.i18n.getMessage("about");
-		optionsPageTitle.innerHTML = chrome.i18n.getMessage("headers");
+		window.setText("options-title", "title");
+		window.setText(headersLink, "headers");
+		window.setText(aboutLink, "about");
+		window.setText(optionsPageTitle, "headers");
 
 		// Display the "Headers" page as the initial page
 		headersPage.style.display = "block";
@@ -27,40 +27,61 @@
 			aboutPage.style.display = "none";
 			headersPage.style.display = "block";
 
-			optionsPageTitle.innerHTML = chrome.i18n.getMessage("headers");
+			window.setText(optionsPageTitle, "headers");
 		});
 
 		aboutLink.addEventListener("click", function() {
 			headersPage.style.display = "none";
 			aboutPage.style.display = "block";
 
-			optionsPageTitle.innerHTML = chrome.i18n.getMessage("about");
+			window.setText(optionsPageTitle, "about");
 		});
 	})();
 
 	// Setup headers "page"
 	(function() {
+		var headers = window.getHeaders();
+		var headersTableBody = document.getElementById("options-headers-table-body");
 		var addButton = document.getElementById("options-headers-table-add");
+		var createHeader = document.getElementById("options-headers-table-create-header");
+		var createValue = document.getElementById("options-headers-table-create-value");
 
 		// Setup text with i18n
-		document.getElementById("options-headers-table-header").innerHTML = chrome.i18n.getMessage("header");
-		document.getElementById("options-headers-table-value").innerHTML = chrome.i18n.getMessage("value");
-		addButton.innerHTML = chrome.i18n.getMessage("add");
+		window.setText("options-headers-table-header", "header");
+		window.setText("options-headers-table-value", "value");
+		window.setText(addButton, "add");
+
+		// Insert existing headers
+		for (var i = 0; i < headers.length; i++) {
+			headersTableBody.appendChild(window.createHeaderRow(headers[0]));
+		}
 
 		// Setup actions
 		addButton.addEventListener("click", function() {
-			// TODO: Persist new header
-			// TODO: Clear out insert form
+			// TODO: Add validation for created headers
+
+			var header = {
+				header: createHeader.value,
+				value: createValue.value
+			};
+
+			// Display the new header in the list of headers
+			headersTableBody.appendChild(window.createHeaderRow(header));
+
+			// Persist the new header
+			headers.push(header);
+			window.setHeaders(headers);
+
+			// Clear create header form
+			createHeader.value = "";
+			createValue.value = "";
 		});
 	})();
 
 	// Setup about "page"
 	(function() {
-		console.log(chrome.i18n.getMessage("about"));
-		console.log(chrome.i18n.getMessage("aboutExtension"));
-
-		document.getElementById("options-about-extension").innerHTML = chrome.i18n.getMessage("aboutExtension");
-		document.getElementById("options-about-support").innerHTML = chrome.i18n.getMessage("aboutSupport");
-		document.getElementById("options-about-author").innerHTML = chrome.i18n.getMessage("aboutAuthor");
+		window.setText("options-about-extension", "aboutExtension");
+		window.setText("options-about-support", "aboutSupport");
+		window.setText("options-about-author", "aboutAuthor");
 	})();
 })();

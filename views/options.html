@@ -26,13 +26,13 @@
 							<th></th>
 						</tr>
 						</thead>
-						<tbody>
-						<tr>
-							<td><label><input class="" type="text" value="" /></label></td>
-							<td><label><input class="" type="text" value="" /></label></td>
-							<td><button id="options-headers-table-add"></button></td>
-						</tr>
-						<tr><td colspan="3"><hr /></td></tr>
+						<tbody id="options-headers-table-body">
+							<tr id="options-headers-table-create">
+								<td><label><input id="options-headers-table-create-header" type="text" /></label></td>
+								<td><label><input id="options-headers-table-create-value" type="text" /></label></td>
+								<td><button id="options-headers-table-add"></button></td>
+							</tr>
+							<tr><td colspan="3"><hr /></td></tr>
 						</tbody>
 					</table>
 				</div>
@@ -46,5 +46,6 @@
 		</section>
 	</body>
 
+	<script type="application/javascript" src="/actions/common.js"></script>
 	<script type="application/javascript" src="/actions/options.js"></script>
 </html>

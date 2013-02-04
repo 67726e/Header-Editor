@@ -19,6 +19,14 @@
 		"message": "Add"
 	},
 
+	"delete": {
+		"message": "Delete"
+	},
+
+	"edit": {
+		"message": "Edit"
+	},
+
 	"header": {
 		"message": "Header"
 	},

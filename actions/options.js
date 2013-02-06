@@ -52,24 +52,24 @@
 		window.setText(addButton, "add");
 
 		// Insert existing headers
-		for (var i = 0; i < headers.length; i++) {
-			headersTableBody.appendChild(window.createHeaderRow(headers[0]));
+		for (var key in headers) {
+			if (headers.hasOwnProperty(key)) {
+				headersTableBody.appendChild(window.createHeaderRow(key, headers[key]));
+			}
 		}
 
 		// Setup actions
 		addButton.addEventListener("click", function() {
 			// TODO: Add validation for created headers
-
-			var header = {
-				header: createHeader.value,
-				value: createValue.value
-			};
+			var header = createHeader.value;
+			var value = createValue.value;
 
 			// Display the new header in the list of headers
-			headersTableBody.appendChild(window.createHeaderRow(header));
+			window.removeHeaderRow(header);
+			headersTableBody.appendChild(window.createHeaderRow(header, value));
 
 			// Persist the new header
-			headers.push(header);
+			headers[header] = value;
 			window.setHeaders(headers);
 
 			// Clear create header form

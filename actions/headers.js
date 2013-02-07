@@ -4,8 +4,33 @@
 (function() {
 	"use strict";
 
+	function getChromeHeaders() {
+		var headers = window.getHeaders();
+
+		var chromeHeaders = [];
+
+		for (var key in headers) {
+			if (headers.hasOwnProperty(key)) {
+				chromeHeaders.push({
+					name: key,
+					value: headers[key]
+				});
+			}
+		}
+
+		return chromeHeaders;
+	}
+
+	var chromeHeaders = getChromeHeaders();
+	var lastModified = window.getLastModified();
+
+
 	var modifyHeaders = function(details) {
-		details.requestHeaders.push({name: "X-Forwarded-For", value: "TEST"});
+		if (lastModified !== window.getLastModified()) {
+			chromeHeaders = getChromeHeaders();
+		}
+
+		details.requestHeaders = details.requestHeaders.concat(chromeHeaders);
 		return {requestHeaders: details.requestHeaders};
 	};
 

@@ -60,6 +60,9 @@
 
 		// Setup actions
 		addButton.addEventListener("click", function() {
+			// Refresh the list of headers
+			headers = window.getHeaders();
+
 			// TODO: Add validation for created headers
 			var header = createHeader.value;
 			var value = createValue.value;

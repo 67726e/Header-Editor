@@ -89,6 +89,11 @@
 			headers = {};
 		}
 
+		localStorage.setItem("headers-last-modified", new Date());
 		localStorage.setItem("headers", JSON.stringify(headers));
+	};
+
+	window.getLastModified = function() {
+		return localStorage.getItem("headers-last-modified");
 	};
 })();

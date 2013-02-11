@@ -4,8 +4,80 @@
 (function() {
 	"use strict";
 
-	function editRow() {
-		console.log("EDIT ROW");
+	function editCleanup(row) {
+		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
+
+		// Remove the value edit input
+		var valueEdit = valueCell.getElementsByClassName("options-headers-table-value-edit")[0];
+		valueEdit.remove();
+
+		// Get the header's value and diplay it
+		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
+		valueCell.innerHTML = window.getHeaders()[header];
+
+		// Remove cancel & save buttons
+		row.getElementsByClassName("options-headers-table-edit-cancel")[0].remove();
+		row.getElementsByClassName("options-headers-table-edit-save")[0].remove();
+
+		// Redisplay the edit & delete buttons
+		row.getElementsByClassName("options-headers-table-edit")[0].style.display = "";
+		row.getElementsByClassName("options-headers-table-delete")[0].style.display = "";
+	}
+
+	function editCancel(event) {
+		var row = event.target.parentNode.parentNode;
+		editCleanup(row);
+	}
+
+	function editSave(event) {
+		var row = event.target.parentNode.parentNode;
+		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
+		var valueEdit = valueCell.getElementsByClassName("options-headers-table-value-edit")[0];
+
+		// Get header and value
+		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
+		var value = valueEdit.value;
+
+		// Save the new header
+		var headers = window.getHeaders();
+		headers[header] = value;
+		window.setHeaders(headers);
+
+		editCleanup(row);
+	}
+
+	function editRow(event) {
+		var row = event.target.parentNode.parentNode;
+		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
+
+		// Create a text input to edit the value
+		var valueEdit = document.createElement("input");
+		valueEdit.type = "text";
+		valueEdit.className = "options-headers-table-value-edit";
+		valueEdit.value = valueCell.innerHTML;
+
+		// Hide the text and display the input
+		valueCell.innerHTML = "";
+		valueCell.appendChild(valueEdit);
+
+		// Create cancel and save buttons
+		var cancelButton = document.createElement("button");
+		cancelButton.className = "options-headers-table-edit-cancel";
+		cancelButton.addEventListener("click", editCancel);
+		window.setText(cancelButton, "cancel");
+
+		var saveButton = document.createElement("button");
+		saveButton.className = "options-headers-table-edit-save";
+		saveButton.addEventListener("click", editSave);
+		window.setText(saveButton, "save");
+
+		// Hide the delete and edit buttons, show save and cancel
+		row.getElementsByClassName("options-headers-table-edit")[0].style.display = "none";
+		row.getElementsByClassName("options-headers-table-delete")[0].style.display = "none";
+
+		var actionsCell = row.getElementsByClassName("options-headers-table-actions")[0];
+		actionsCell.appendChild(cancelButton);
+		actionsCell.appendChild(saveButton);
 	}
 
 	function deleteRow(event) {

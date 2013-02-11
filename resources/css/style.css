@@ -7,11 +7,15 @@
 
 body {
 	font-family: "Roboto Condensed", sans-serif;
+	font-size: 15px;
+}
+
+h3 {
+	margin: 30px 0 0 0;
 }
 
 p {
 	color: #333;
-	font-size: 14px;
 }
 
 hr {
@@ -20,7 +24,7 @@ hr {
 }
 
 td {
-	font-size: 14px;
+
 }
 
 input[type="submit"], input[type="reset"], button {

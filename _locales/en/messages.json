@@ -3,6 +3,14 @@
 		"message": "About"
 	},
 
+	"aboutAttributions": {
+		"message": "Attributions"
+	},
+
+	"aboutAttributionsIcon": {
+		"message": "Pencil icon provided by <a href=\"http://www.designcontest.com/\">Design Contest</a> on CC Attribution 3.0 @ <a href=\"http://www.iconarchive.com/show/outline-icons-by-designcontest/Pencil-icon.html\">Icon Archive</a>"
+	},
+
 	"aboutAuthor": {
 		"message": "This extension was written by <a href='http://hexcoder.us/' target='_blank'>Glenn Nelson</a>. You can also follow him on Twitter <a href='https://twitter.com/67726e' target='_blank'/>@67726e</a>."
 	},

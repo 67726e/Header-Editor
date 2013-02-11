@@ -14,11 +14,17 @@
 	],
 
 	"browser_action": {
-		"default_icon": "./resources/images/icon.png",
+		"default_icon": "./resources/images/pencil-icon_48.png",
 		"default_popup": "/views/popup.html"
 	},
 
 	"background": {
 		"scripts": ["/actions/common.js", "/actions/headers.js"]
+	},
+
+	"icons": {
+		"16": "/resources/images/pencil-icon_16.png",
+		"48": "/resources/images/pencil-icon_48.png",
+		"128": "/resources/images/pencil-icon_128.png"
 	}
 }

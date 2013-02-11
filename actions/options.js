@@ -86,5 +86,7 @@
 		window.setText("options-about-extension", "aboutExtension");
 		window.setText("options-about-support", "aboutSupport");
 		window.setText("options-about-author", "aboutAuthor");
+		window.setText("options-about-attributions", "aboutAttributions");
+		window.setText("options-about-attributions-icon", "aboutAttributionsIcon");
 	})();
 })();

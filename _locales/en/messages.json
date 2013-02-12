@@ -16,11 +16,11 @@
 	},
 
 	"aboutExtension": {
-		"message": "Chrome Headers is a extension that allows you to easily insert HTTP headers your requests."
+		"message": "Chrome Headers is a extension that allows you to easily insert HTTP headers into your requests."
 	},
 
 	"aboutSupport": {
-		"message": "For questions, issues, or feature requests, please see the Chrome Headers' <a href='https://github.com/67726e/Chrome-Headers' target='_blank'>GitHub repository</a>."
+		"message": "For questions, issues, or feature requests, please see the Chrome Headers <a href='https://github.com/67726e/Chrome-Headers' target='_blank'>GitHub repository</a>."
 	},
 
 	"add": {

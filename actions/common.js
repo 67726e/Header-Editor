@@ -53,7 +53,7 @@
 		// Create a text input to edit the value
 		var valueEdit = document.createElement("input");
 		valueEdit.type = "text";
-		valueEdit.className = "options-headers-table-value-edit";
+		valueEdit.classList.add("options-headers-table-value-edit");
 		valueEdit.value = valueCell.innerHTML;
 
 		// Hide the text and display the input
@@ -62,12 +62,12 @@
 
 		// Create cancel and save buttons
 		var cancelButton = document.createElement("button");
-		cancelButton.className = "options-headers-table-edit-cancel";
+		cancelButton.classList.add("options-headers-table-edit-cancel");
 		cancelButton.addEventListener("click", editCancel);
 		window.setText(cancelButton, "cancel");
 
 		var saveButton = document.createElement("button");
-		saveButton.className = "options-headers-table-edit-save";
+		saveButton.classList.add("options-headers-table-edit-save");
 		saveButton.addEventListener("click", editSave);
 		window.setText(saveButton, "save");
 
@@ -104,27 +104,27 @@
 	window.createHeaderRow = function(header, value) {
 		// Header cell
 		var headerCell = document.createElement("td");
-		headerCell.className = "options-headers-table-header";
+		headerCell.classList.add("options-headers-table-header");
 		headerCell.innerHTML = header;
 
 		// Value cell
 		var valueCell = document.createElement("td");
-		valueCell.className = "options-headers-table-value";
+		valueCell.classList.add("options-headers-table-value");
 		valueCell.innerHTML = value;
 
 		// Edit/Delete cell
 		var editButton = document.createElement("button");
-		editButton.className = "options-headers-table-edit";
+		editButton.classList.add("options-headers-table-edit");
 		editButton.addEventListener("click", editRow);
 		window.setText(editButton, "edit");
 
 		var deleteButton = document.createElement("button");
-		deleteButton.className = "options-headers-table-delete";
+		deleteButton.classList.add("options-headers-table-delete");
 		deleteButton.addEventListener("click", deleteRow);
 		window.setText(deleteButton, "delete");
 
 		var actionsCell = document.createElement("td");
-		actionsCell.className = "options-headers-table-actions";
+		actionsCell.classList.add("options-headers-table-actions");
 		actionsCell.appendChild(editButton);
 		actionsCell.appendChild(deleteButton);
 

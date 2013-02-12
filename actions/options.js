@@ -40,9 +40,6 @@
 
 	// Setup headers "page"
 	(function() {
-		// http://www.ietf.org/rfc/rfc2616.txt
-		var headerRegex = new RegExp(/(!|#|\$|%|&|'|\*|\+|\-|\.|[a-zA-Z]|^|_|`|\||~)+$/);
-		var valueRegex = new RegExp(/^[\000-\037]+$/);
 		var headers = window.getHeaders();
 		var headersTableBody = document.getElementById("options-headers-table-body");
 		var addButton = document.getElementById("options-headers-table-add");
@@ -68,12 +65,6 @@
 
 			var header = createHeader.value;
 			var value = createValue.value;
-
-			// Validate the header name and value fields against RFC 2616
-			// TODO: Add error display to user when passed in an invalid header or value
-			if (header.trim() === "" || !headerRegex.test(header) || !valueRegex.test(value)) {
-				return;
-			}
 
 			// Display the new header in the list of headers
 			window.removeHeaderRow(header);

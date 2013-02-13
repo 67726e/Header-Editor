@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"name": "Chrome Headers",
+	"name": "Header-Editor",
 	"description": "Alter your HTTP request headers on the fly",
 	"version": "1.0",
 	"default_locale": "en",

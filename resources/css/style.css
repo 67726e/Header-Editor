@@ -8,23 +8,16 @@
 body {
 	font-family: "Roboto Condensed", sans-serif;
 	font-size: 15px;
+	color: #333;
 }
 
 h3 {
 	margin: 30px 0 0 0;
 }
 
-p {
-	color: #333;
-}
-
 hr {
 	border: none;
 	border-top: 1px solid #333;
-}
-
-td {
-
 }
 
 input[type="submit"], input[type="reset"], button {

@@ -1,5 +1,6 @@
-## Chrome Headers
+## Header Editor
 
+Header-Editor is a Chrome extension that allows you to easily insert HTTP headers into your requests.
 
 ### Attribution
 

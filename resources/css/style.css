@@ -105,6 +105,10 @@ input[type="text"]:focus {
 	text-align: left;
 }
 
+#options-headers-table th {
+	width: 33%;
+}
+
 /* Options About */
 #options-about-page {
 	display: none;

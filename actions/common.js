@@ -11,7 +11,7 @@
 		var valueEdit = valueCell.getElementsByClassName("options-headers-table-value-edit")[0];
 		valueEdit.remove();
 
-		// Get the header's value and diplay it
+		// Get the header's value and display it
 		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
 		valueCell.innerHTML = window.getHeaders()[header];
 
@@ -112,6 +112,16 @@
 		valueCell.classList.add("options-headers-table-value");
 		valueCell.innerHTML = value;
 
+		// Active cell
+		var activeCheckbox = document.createElement("input");
+		activeCheckbox.type = "checkbox";
+		activeCheckbox.disabled = true;
+		// TODO: Create and append checkbox with appropriate state
+
+		var activeCell = document.createElement("td");
+		activeCell.classList.add("options-headers-table-active");
+		activeCell.appendChild(activeCheckbox);
+
 		// Edit/Delete cell
 		var editButton = document.createElement("button");
 		editButton.classList.add("options-headers-table-edit");
@@ -133,6 +143,7 @@
 		row.id = "header-" + header;
 		row.appendChild(headerCell);
 		row.appendChild(valueCell);
+		row.appendChild(activeCell);
 		row.appendChild(actionsCell);
 
 		return row;

@@ -49,6 +49,7 @@
 		// Setup text with i18n
 		window.setText("options-headers-table-header", "header");
 		window.setText("options-headers-table-value", "value");
+		window.setText("options-headers-table-active", "active");
 		window.setText(addButton, "add");
 
 		// Insert existing headers

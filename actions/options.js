@@ -45,6 +45,7 @@
 		var addButton = document.getElementById("options-headers-table-add");
 		var createHeader = document.getElementById("options-headers-table-create-header");
 		var createValue = document.getElementById("options-headers-table-create-value");
+		var createActive = document.getElementById("options-headers-table-create-active");
 
 		// Setup text with i18n
 		window.setText("options-headers-table-header", "header");
@@ -53,9 +54,9 @@
 		window.setText(addButton, "add");
 
 		// Insert existing headers
-		for (var key in headers) {
-			if (headers.hasOwnProperty(key)) {
-				headersTableBody.appendChild(window.createHeaderRow(key, headers[key]));
+		for (var header in headers) {
+			if (headers.hasOwnProperty(header)) {
+				headersTableBody.appendChild(window.createHeaderRow(header, headers[header].value, headers[header].active));
 			}
 		}
 
@@ -66,18 +67,20 @@
 
 			var header = createHeader.value;
 			var value = createValue.value;
+			var active = createActive.checked;
 
 			// Display the new header in the list of headers
 			window.removeHeaderRow(header);
-			headersTableBody.appendChild(window.createHeaderRow(header, value));
+			headersTableBody.appendChild(window.createHeaderRow(header, value, active));
 
 			// Persist the new header
-			headers[header] = value;
+			headers[header] = {value: value, active: active};
 			window.setHeaders(headers);
 
 			// Clear create header form
 			createHeader.value = "";
 			createValue.value = "";
+			createActive.checked = true;
 		});
 	})();
 

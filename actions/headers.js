@@ -10,10 +10,10 @@
 		var chromeHeaders = [];
 
 		for (var key in headers) {
-			if (headers.hasOwnProperty(key)) {
+			if (headers.hasOwnProperty(key) && headers[key].active === true) {
 				chromeHeaders.push({
 					name: key,
-					value: headers[key]
+					value: headers[key].value
 				});
 			}
 		}

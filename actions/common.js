@@ -6,6 +6,7 @@
 
 	function editCleanup(row) {
 		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
+		var activeCheckbox = row.getElementsByClassName("options-headers-table-active")[0].getElementsByTagName("input")[0];
 
 		// Remove the value edit input
 		var valueEdit = valueCell.getElementsByClassName("options-headers-table-value-edit")[0];
@@ -13,7 +14,12 @@
 
 		// Get the header's value and display it
 		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
-		valueCell.innerHTML = window.getHeaders()[header];
+		var headerData = window.getHeaders()[header];
+		valueCell.innerHTML = headerData.value;
+
+		// Disable the active status checkbox and revert the status
+		activeCheckbox.disabled = true;
+		activeCheckbox.checked = headerData.active;
 
 		// Remove cancel & save buttons
 		row.getElementsByClassName("options-headers-table-edit-cancel")[0].remove();
@@ -38,9 +44,13 @@
 		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
 		var value = valueEdit.value;
 
+		// Get the active status
+		var activeCheckbox = row.getElementsByClassName("options-headers-table-active")[0].getElementsByTagName("input")[0];
+		var active = activeCheckbox.checked;
+
 		// Save the new header
 		var headers = window.getHeaders();
-		headers[header] = value;
+		headers[header] = {value: value, active: active};
 		window.setHeaders(headers);
 
 		editCleanup(row);
@@ -49,6 +59,7 @@
 	function editRow(event) {
 		var row = event.target.parentNode.parentNode;
 		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
+		var activeCheckbox = row.getElementsByClassName("options-headers-table-active")[0].getElementsByTagName("input")[0];
 
 		// Create a text input to edit the value
 		var valueEdit = document.createElement("input");
@@ -59,6 +70,9 @@
 		// Hide the text and display the input
 		valueCell.innerHTML = "";
 		valueCell.appendChild(valueEdit);
+
+		// Enable the active status checkbox
+		activeCheckbox.disabled = false;
 
 		// Create cancel and save buttons
 		var cancelButton = document.createElement("button");
@@ -101,7 +115,7 @@
 		}
 	};
 
-	window.createHeaderRow = function(header, value) {
+	window.createHeaderRow = function(header, value, active) {
 		// Header cell
 		var headerCell = document.createElement("td");
 		headerCell.classList.add("options-headers-table-header");
@@ -116,7 +130,7 @@
 		var activeCheckbox = document.createElement("input");
 		activeCheckbox.type = "checkbox";
 		activeCheckbox.disabled = true;
-		// TODO: Create and append checkbox with appropriate state
+		activeCheckbox.checked = active;
 
 		var activeCell = document.createElement("td");
 		activeCell.classList.add("options-headers-table-active");
@@ -179,4 +193,30 @@
 	window.getLastModified = function() {
 		return localStorage.getItem("headers-last-modified");
 	};
+
+	chrome.runtime.onInstalled.addListener(function(details) {
+		if ("update" === details.reason) {
+			var previousVersion = details.previousVersion;
+			var currentVersion = chrome.app.getDetails().version;
+
+			if (previousVersion < currentVersion) {
+				if (previousVersion < "1.0.1") {
+					// Update K/V pair to be String/Object
+					// e.g. "X-Forwarded-For": {header: "127.0.0.1", active: true}
+
+					var headers = window.getHeaders();
+
+					var updatedHeaders = {};
+					for (var header in headers) {
+						if (headers.hasOwnProperty(header)) {
+							// Default all headers to active
+							updatedHeaders[header] = {value: headers[header], active: true};
+						}
+					}
+
+					window.setHeaders(updatedHeaders);
+				}
+			}
+		}
+	});
 })();

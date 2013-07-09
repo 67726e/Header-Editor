@@ -200,7 +200,7 @@
 			var currentVersion = chrome.app.getDetails().version;
 
 			if (previousVersion < currentVersion) {
-				if (previousVersion < "1.0.1") {
+				if (previousVersion < "1.1.0") {
 					// Update K/V pair to be String/Object
 					// e.g. "X-Forwarded-For": {header: "127.0.0.1", active: true}
 

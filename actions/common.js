@@ -4,7 +4,82 @@
 (function() {
 	"use strict";
 
+	// Update related code
+
+	function update1_1_0() {
+		// Update K/V pair to be String/Object
+		// e.g. "X-Forwarded-For": {header: "127.0.0.1", active: true}
+
+		var headers = window.getHeaders();
+		var updatedHeaders = {};
+
+		for (var header in headers) {
+			if (headers.hasOwnProperty(header)) {
+				// Default all headers to active
+				updatedHeaders[header] = {value: headers[header], active: true};
+			}
+		}
+
+		window.setHeaders(updatedHeaders);
+	}
+
+	function update1_1_1() {
+		// Update the header data to be in the form
+		// "UUID": {
+		//   header: <STRING>,
+		//   value: <STRING>,
+		//   active: <BOOLEAN>
+		// }
+
+		var headers = window.getHeaders();
+		var updatedHeaders = {};
+
+		for (var header in headers) {
+			if (headers.hasOwnProperty(header)) {
+				updatedHeaders[guid()] = {
+					header: header,
+					value: headers[header].value,
+					active: headers[header].active
+				};
+			}
+		}
+
+		window.setHeaders(updatedHeaders);
+	}
+
+	chrome.runtime.onInstalled.addListener(function(details) {
+		if ("update" === details.reason) {
+			var previousVersion = details.previousVersion;
+			var currentVersion = chrome.app.getDetails().version;
+
+			if (previousVersion < currentVersion) {
+				if (previousVersion < "1.1.0") {
+					update1_1_0();
+				}
+
+				if (previousVersion < "1.1.1") {
+					update1_1_1();
+				}
+			}
+		}
+	});
+
+	// Internal functions
+
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+			.toString(16)
+			.substring(1);
+	}
+
+	function guid() {
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+			s4() + '-' + s4() + s4() + s4();
+	}
+
 	function editCleanup(row) {
+		var uuid = row.dataUuid;
+
 		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
 		var activeCheckbox = row.getElementsByClassName("options-headers-table-active")[0].getElementsByTagName("input")[0];
 
@@ -14,7 +89,7 @@
 
 		// Get the header's value and display it
 		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
-		var headerData = window.getHeaders()[header];
+		var headerData = window.getHeaders()[uuid];
 		valueCell.innerHTML = headerData.value;
 
 		// Disable the active status checkbox and revert the status
@@ -37,6 +112,7 @@
 
 	function editSave(event) {
 		var row = event.target.parentNode.parentNode;
+		var uuid = row.dataUuid;
 		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
 		var valueEdit = valueCell.getElementsByClassName("options-headers-table-value-edit")[0];
 
@@ -50,7 +126,7 @@
 
 		// Save the new header
 		var headers = window.getHeaders();
-		headers[header] = {value: value, active: active};
+		headers[uuid] = {header: header, value: value, active: active};
 		window.setHeaders(headers);
 
 		editCleanup(row);
@@ -96,14 +172,16 @@
 
 	function deleteRow(event) {
 		var row = event.target.parentNode.parentNode;
-		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
+		var uuid = row.dataUuid;
 
-		window.removeHeaderRow(header);
+		window.removeHeaderRow(uuid);
 
 		var headers = window.getHeaders();
-		delete headers[header];
+		delete headers[uuid];
 		window.setHeaders(headers);
 	}
+
+	// Globally accessible functionality
 
 	window.setText = function(element, i18nKey) {
 		var text = chrome.i18n.getMessage(i18nKey);
@@ -115,7 +193,7 @@
 		}
 	};
 
-	window.createHeaderRow = function(header, value, active) {
+	window.createHeaderRow = function(uuid, header, value, active) {
 		// Header cell
 		var headerCell = document.createElement("td");
 		headerCell.classList.add("options-headers-table-header");
@@ -154,7 +232,8 @@
 
 		// Create wrapping `<tr>`
 		var row = document.createElement("tr");
-		row.id = "header-" + header;
+		row.id = "header-" + uuid;
+		row.dataUuid = uuid;
 		row.appendChild(headerCell);
 		row.appendChild(valueCell);
 		row.appendChild(activeCell);
@@ -163,8 +242,8 @@
 		return row;
 	};
 
-	window.removeHeaderRow = function(header) {
-		var headerRow = document.getElementById("header-" + header);
+	window.removeHeaderRow = function(uuid) {
+		var headerRow = document.getElementById("header-" + uuid);
 
 		if (headerRow) {
 			headerRow.parentNode.removeChild(headerRow);
@@ -194,29 +273,5 @@
 		return localStorage.getItem("headers-last-modified");
 	};
 
-	chrome.runtime.onInstalled.addListener(function(details) {
-		if ("update" === details.reason) {
-			var previousVersion = details.previousVersion;
-			var currentVersion = chrome.app.getDetails().version;
-
-			if (previousVersion < currentVersion) {
-				if (previousVersion < "1.1.0") {
-					// Update K/V pair to be String/Object
-					// e.g. "X-Forwarded-For": {header: "127.0.0.1", active: true}
-
-					var headers = window.getHeaders();
-
-					var updatedHeaders = {};
-					for (var header in headers) {
-						if (headers.hasOwnProperty(header)) {
-							// Default all headers to active
-							updatedHeaders[header] = {value: headers[header], active: true};
-						}
-					}
-
-					window.setHeaders(updatedHeaders);
-				}
-			}
-		}
-	});
+	window.generateUuid = guid;
 })();

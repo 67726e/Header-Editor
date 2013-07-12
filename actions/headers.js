@@ -12,7 +12,7 @@
 		for (var key in headers) {
 			if (headers.hasOwnProperty(key) && headers[key].active === true) {
 				chromeHeaders.push({
-					name: key,
+					name: headers[key].header,
 					value: headers[key].value
 				});
 			}

@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Header-Editor",
 	"description": "Alter your HTTP request headers on the fly",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"default_locale": "en",
 
 	"options_page": "/views/options.html",

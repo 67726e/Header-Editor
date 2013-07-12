@@ -54,9 +54,9 @@
 		window.setText(addButton, "add");
 
 		// Insert existing headers
-		for (var header in headers) {
-			if (headers.hasOwnProperty(header)) {
-				headersTableBody.appendChild(window.createHeaderRow(header, headers[header].value, headers[header].active));
+		for (var uuid in headers) {
+			if (headers.hasOwnProperty(uuid)) {
+				headersTableBody.appendChild(window.createHeaderRow(uuid, headers[uuid].header, headers[uuid].value, headers[uuid].active));
 			}
 		}
 
@@ -65,16 +65,16 @@
 			// Refresh the list of headers
 			headers = window.getHeaders();
 
+			var uuid = window.generateUuid();
 			var header = createHeader.value;
 			var value = createValue.value;
 			var active = createActive.checked;
 
 			// Display the new header in the list of headers
-			window.removeHeaderRow(header);
-			headersTableBody.appendChild(window.createHeaderRow(header, value, active));
+			headersTableBody.appendChild(window.createHeaderRow(uuid, header, value, active));
 
 			// Persist the new header
-			headers[header] = {value: value, active: active};
+			headers[uuid] = {header: header, value: value, active: active};
 			window.setHeaders(headers);
 
 			// Clear create header form

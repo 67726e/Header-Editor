@@ -51,6 +51,14 @@
 		"message": "Headers"
 	},
 
+	"request": {
+		"message": "Request"
+	},
+
+	"response": {
+		"message": "Response"
+	},
+
 	"save": {
 		"message": "Save"
 	},

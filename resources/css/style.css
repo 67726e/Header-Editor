@@ -92,9 +92,9 @@ input[type="text"]:focus {
 	width: 800px;
 }
 
-/* Options Headers */
+/* Options Request Headers */
 
-#options-headers-page {
+#options-request-headers-page {
 	display: none;
 	margin: 30px 0;
 }
@@ -107,6 +107,13 @@ input[type="text"]:focus {
 
 #options-headers-table th {
 	width: 25%;
+}
+
+/* Options Response Headers */
+
+#options-response-headers-page {
+	display: none;
+	margin: 30px 0;
 }
 
 /* Options About */

@@ -5,40 +5,53 @@
 	"use strict";
 
 	var optionsPageTitle = document.getElementById("options-page-title");
-	var headersPage = document.getElementById("options-headers-page");
+	var requestHeadersPage = document.getElementById("options-request-headers-page");
+	var responseHeadersPage = document.getElementById("options-response-headers-page");
 	var aboutPage = document.getElementById("options-about-page");
 
 	// Setup options page
 	(function() {
-		var headersLink = document.getElementById("options-headers");
+		var requestHeadersLink = document.getElementById("options-request-headers");
+		var responseHeadersLink = document.getElementById("options-response-headers");
 		var aboutLink = document.getElementById("options-about");
 
 		// Insert i18n text
 		window.setText("options-title", "title");
-		window.setText(headersLink, "headers");
+		window.setText(requestHeadersLink, "request");
+		window.setText(responseHeadersLink, "response");
 		window.setText(aboutLink, "about");
-		window.setText(optionsPageTitle, "headers");
+		window.setText(optionsPageTitle, "request");
 
 		// Display the "Headers" page as the initial page
-		headersPage.style.display = "block";
+		requestHeadersPage.style.display = "block";
 
 		// Setup navigation actions
-		headersLink.addEventListener("click", function() {
+		requestHeadersLink.addEventListener("click", function() {
+			requestHeadersPage.style.display = "block";
+			responseHeadersPage.style.display = "none";
 			aboutPage.style.display = "none";
-			headersPage.style.display = "block";
 
-			window.setText(optionsPageTitle, "headers");
+			window.setText(optionsPageTitle, "request");
+		});
+
+		responseHeadersLink.addEventListener("click", function() {
+			requestHeadersPage.style.display = "none";
+			responseHeadersPage.style.display = "block";
+			aboutPage.style.display = "none";
+
+			window.setText(optionsPageTitle, "response");
 		});
 
 		aboutLink.addEventListener("click", function() {
-			headersPage.style.display = "none";
+			requestHeadersPage.style.display = "none";
+			responseHeadersPage.style.display = "none";
 			aboutPage.style.display = "block";
 
 			window.setText(optionsPageTitle, "about");
 		});
 	})();
 
-	// Setup headers "page"
+	// Setup request headers "page"
 	(function() {
 		var headers = window.getHeaders();
 		var headersTableBody = document.getElementById("options-headers-table-body");
@@ -82,6 +95,11 @@
 			createValue.value = "";
 			createActive.checked = true;
 		});
+	})();
+
+	// Setup response headers "page"
+	(function() {
+
 	})();
 
 	// Setup about "page"

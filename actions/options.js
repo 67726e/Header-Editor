@@ -53,7 +53,7 @@
 
 	// Setup request headers "page"
 	(function() {
-		var headers = window.getHeaders();
+		var headers = window.getRequestHeaders();
 		var headersTableBody = document.getElementById("options-headers-table-body");
 		var addButton = document.getElementById("options-headers-table-add");
 		var createHeader = document.getElementById("options-headers-table-create-header");
@@ -76,7 +76,7 @@
 		// Setup actions
 		addButton.addEventListener("click", function() {
 			// Refresh the list of headers
-			headers = window.getHeaders();
+			headers = window.getRequestHeaders();
 
 			var uuid = window.generateUuid();
 			var header = createHeader.value;
@@ -88,7 +88,7 @@
 
 			// Persist the new header
 			headers[uuid] = {header: header, value: value, active: active};
-			window.setHeaders(headers);
+			window.setRequestHeaders(headers);
 
 			// Clear create header form
 			createHeader.value = "";

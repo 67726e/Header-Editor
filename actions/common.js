@@ -10,7 +10,7 @@
 		// Update K/V pair to be String/Object
 		// e.g. "X-Forwarded-For": {header: "127.0.0.1", active: true}
 
-		var headers = window.getHeaders();
+		var headers = window.getRequestHeaders();
 		var updatedHeaders = {};
 
 		for (var header in headers) {
@@ -20,7 +20,7 @@
 			}
 		}
 
-		window.setHeaders(updatedHeaders);
+		window.setRequestHeaders(updatedHeaders);
 	}
 
 	function update1_1_1() {
@@ -31,7 +31,7 @@
 		//   active: <BOOLEAN>
 		// }
 
-		var headers = window.getHeaders();
+		var headers = window.getRequestHeaders();
 		var updatedHeaders = {};
 
 		for (var header in headers) {
@@ -44,7 +44,7 @@
 			}
 		}
 
-		window.setHeaders(updatedHeaders);
+		window.setRequestHeaders(updatedHeaders);
 	}
 
 	chrome.runtime.onInstalled.addListener(function(details) {
@@ -89,7 +89,7 @@
 
 		// Get the header's value and display it
 		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
-		var headerData = window.getHeaders()[uuid];
+		var headerData = window.getRequestHeaders()[uuid];
 		valueCell.innerHTML = headerData.value;
 
 		// Disable the active status checkbox and revert the status
@@ -125,9 +125,9 @@
 		var active = activeCheckbox.checked;
 
 		// Save the new header
-		var headers = window.getHeaders();
+		var headers = window.getRequestHeaders();
 		headers[uuid] = {header: header, value: value, active: active};
-		window.setHeaders(headers);
+		window.setRequestHeaders(headers);
 
 		editCleanup(row);
 	}
@@ -176,9 +176,9 @@
 
 		window.removeHeaderRow(uuid);
 
-		var headers = window.getHeaders();
+		var headers = window.getRequestHeaders();
 		delete headers[uuid];
-		window.setHeaders(headers);
+		window.setRequestHeaders(headers);
 	}
 
 	// Globally accessible functionality
@@ -250,7 +250,7 @@
 		}
 	};
 
-	window.getHeaders = function() {
+	window.getRequestHeaders = function() {
 		var headersJson = localStorage.getItem("headers");
 
 		if (headersJson) {
@@ -260,7 +260,7 @@
 		return {};
 	};
 
-	window.setHeaders = function(headers) {
+	window.setRequestHeaders = function(headers) {
 		if (!headers) {
 			headers = {};
 		}
@@ -269,8 +269,31 @@
 		localStorage.setItem("headers", JSON.stringify(headers));
 	};
 
-	window.getLastModified = function() {
+	window.getResponseHeaders = function() {
+		var headersJson = localStorage.getItem("response-headers");
+
+		if (headersJson) {
+			return JSON.parse(headersJson);
+		}
+
+		return {};
+	};
+
+	window.setResponseHeaders = function(headers) {
+		if (!headers) {
+			headers = {};
+		}
+
+		localStorage.setItem("response-headers-last-modified", new Date());
+		localStorage.setItem("response-headers", JSON.stringify(headers));
+	};
+
+	window.getRequestLastModified = function() {
 		return localStorage.getItem("headers-last-modified");
+	};
+
+	window.getResponseLastModified = function() {
+		return localStorage.getItem("response-headers-last-modified");
 	};
 
 	window.generateUuid = guid;

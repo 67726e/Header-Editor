@@ -5,7 +5,7 @@
 	"use strict";
 
 	function getChromeHeaders() {
-		var headers = window.getHeaders();
+		var headers = window.getRequestHeaders();
 
 		var chromeHeaders = [];
 
@@ -22,11 +22,11 @@
 	}
 
 	var chromeHeaders = getChromeHeaders();
-	var lastModified = window.getLastModified();
+	var lastModified = window.getRequestLastModified();
 
 
 	var modifyHeaders = function(details) {
-		if (lastModified !== window.getLastModified()) {
+		if (lastModified !== window.getRequestLastModified()) {
 			chromeHeaders = getChromeHeaders();
 		}
 

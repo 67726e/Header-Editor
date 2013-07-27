@@ -92,29 +92,26 @@ input[type="text"]:focus {
 	width: 800px;
 }
 
-/* Options Request Headers */
+/* Headers Tables */
 
-#options-request-headers-page {
+#options-request-headers-page, #options-response-headers-page {
 	display: none;
 	margin: 30px 0;
 }
 
-#options-headers-table {
+#options-headers-table, #options-response-headers-table {
 	width: 95%;
 	margin: 0 auto;
 	text-align: left;
 }
 
-#options-headers-table th {
+#options-headers-table th, #options-response-headers-table th {
 	width: 25%;
 }
 
-/* Options Response Headers */
+/* Options Request Headers */
 
-#options-response-headers-page {
-	display: none;
-	margin: 30px 0;
-}
+/* Options Response Headers */
 
 /* Options About */
 #options-about-page {

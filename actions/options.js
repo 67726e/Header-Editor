@@ -99,7 +99,14 @@
 
 	// Setup response headers "page"
 	(function() {
+		var headers = window.getResponseHeaders();
+		var addButton = document.getElementById("options-response-headers-table-add");
 
+		// Setup text
+		window.setText("options-response-headers-table-header", "header");
+		window.setText("options-response-headers-table-value", "value");
+		window.setText("options-response-headers-table-active", "active");
+		window.setText(addButton, "add");
 	})();
 
 	// Setup about "page"

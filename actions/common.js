@@ -64,6 +64,74 @@
 		}
 	});
 
+	// Utils
+
+	var HEADER_TYPE = {
+		REQUEST: "request",
+		RESPONSE: "response"
+	};
+
+	var DATA = {
+		HEADER_UUID: "headerUuid",
+		HEADER_TYPE: "headerType"
+	};
+
+	var CLASSES = {
+		OPTIONS_HEADERS_TABLE_HEADER: "options-headers-table-header",
+		OPTIONS_HEADERS_TABLE_VALUE: "options-headers-table-value",
+		OPTIONS_HEADERS_TABLE_ACTIVE: "options-headers-table-active",
+		OPTIONS_HEADERS_TABLE_EDIT: "options-headers-table-edit",
+		OPTIONS_HEADERS_TABLE_DELETE: "options-headers-table-delete",
+		OPTIONS_HEADERS_TABLE_ACTIONS: "options-headers-table-actions"
+	};
+
+	var ELEMENTS = {
+		createHeaderCell: function(header) {
+			var headerCell = document.createElement("td");
+			headerCell.classList.add(CLASSES.OPTIONS_HEADERS_TABLE_HEADER);
+			headerCell.innerHTML = header;
+
+			return headerCell;
+		},
+		createValueCell: function(value) {
+			var valueCell = document.createElement("td");
+			valueCell.classList.add(CLASSES.OPTIONS_HEADERS_TABLE_VALUE);
+			valueCell.innerHTML = value;
+
+			return valueCell;
+		},
+		createActiveCell: function(active) {
+			var activeCheckbox = document.createElement("input");
+			activeCheckbox.type = "checkbox";
+			activeCheckbox.disabled = true;
+			activeCheckbox.checked = active;
+
+			var activeCell = document.createElement("td");
+			activeCell.classList.add(CLASSES.OPTIONS_HEADERS_TABLE_ACTIVE);
+			activeCell.appendChild(activeCheckbox);
+
+			return activeCell;
+		},
+		createActionsCell: function() {
+			var editButton = document.createElement("button");
+			editButton.classList.add(CLASSES.OPTIONS_HEADERS_TABLE_EDIT);
+			editButton.addEventListener("click", editRow);
+			window.setText(editButton, "edit");
+
+			var deleteButton = document.createElement("button");
+			deleteButton.classList.add(CLASSES.OPTIONS_HEADERS_TABLE_DELETE);
+			deleteButton.addEventListener("click", deleteRow);
+			window.setText(deleteButton, "delete");
+
+			var actionsCell = document.createElement("td");
+			actionsCell.classList.add(CLASSES.OPTIONS_HEADERS_TABLE_ACTIONS);
+			actionsCell.appendChild(editButton);
+			actionsCell.appendChild(deleteButton);
+
+			return actionsCell;
+		}
+	};
+
 	// Internal functions
 
 	function s4() {
@@ -78,7 +146,9 @@
 	}
 
 	function editCleanup(row) {
-		var uuid = row.dataUuid;
+		var uuid = row.dataset[DATA.HEADER_UUID];
+		var headerType = row.dataset[DATA.HEADER_TYPE];
+		var headerData = getHeaders(headerType)[uuid];
 
 		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
 		var activeCheckbox = row.getElementsByClassName("options-headers-table-active")[0].getElementsByTagName("input")[0];
@@ -89,7 +159,6 @@
 
 		// Get the header's value and display it
 		var header = row.getElementsByClassName("options-headers-table-header")[0].innerHTML;
-		var headerData = window.getRequestHeaders()[uuid];
 		valueCell.innerHTML = headerData.value;
 
 		// Disable the active status checkbox and revert the status
@@ -112,7 +181,9 @@
 
 	function editSave(event) {
 		var row = event.target.parentNode.parentNode;
-		var uuid = row.dataUuid;
+		var uuid = row.dataset[DATA.HEADER_UUID];
+		var headerType = row.dataset[DATA.HEADER_TYPE];
+
 		var valueCell = row.getElementsByClassName("options-headers-table-value")[0];
 		var valueEdit = valueCell.getElementsByClassName("options-headers-table-value-edit")[0];
 
@@ -125,9 +196,9 @@
 		var active = activeCheckbox.checked;
 
 		// Save the new header
-		var headers = window.getRequestHeaders();
+		var headers = getHeaders(headerType);
 		headers[uuid] = {header: header, value: value, active: active};
-		window.setRequestHeaders(headers);
+		setHeaders(headerType, headers);
 
 		editCleanup(row);
 	}
@@ -172,14 +243,34 @@
 
 	function deleteRow(event) {
 		var row = event.target.parentNode.parentNode;
-		var uuid = row.dataUuid;
+		var uuid = row.dataset[DATA.HEADER_UUID];
+		var headerType = row.dataset[DATA.HEADER_TYPE];
+
+		var headers = getHeaders(headerType);
+		delete headers[uuid];
+		setHeaders(headerType, headers);
 
 		window.removeHeaderRow(uuid);
-
-		var headers = window.getRequestHeaders();
-		delete headers[uuid];
-		window.setRequestHeaders(headers);
 	}
+
+	function getHeaders(headerType) {
+		if (headerType === HEADER_TYPE.REQUEST) {
+			return window.getRequestHeaders();
+		} else if (headerType === HEADER_TYPE.RESPONSE) {
+			return window.getResponseHeaders();
+		}
+
+		return undefined;
+	}
+
+	function setHeaders(headerType, headers) {
+		if (headerType === HEADER_TYPE.REQUEST) {
+			window.setRequestHeaders(headers);
+		} else if (headerType === HEADER_TYPE.RESPONSE) {
+			window.setResponseHeaders(headers);
+		}
+	}
+
 
 	// Globally accessible functionality
 
@@ -193,51 +284,16 @@
 		}
 	};
 
-	window.createHeaderRow = function(uuid, header, value, active) {
-		// Header cell
-		var headerCell = document.createElement("td");
-		headerCell.classList.add("options-headers-table-header");
-		headerCell.innerHTML = header;
-
-		// Value cell
-		var valueCell = document.createElement("td");
-		valueCell.classList.add("options-headers-table-value");
-		valueCell.innerHTML = value;
-
-		// Active cell
-		var activeCheckbox = document.createElement("input");
-		activeCheckbox.type = "checkbox";
-		activeCheckbox.disabled = true;
-		activeCheckbox.checked = active;
-
-		var activeCell = document.createElement("td");
-		activeCell.classList.add("options-headers-table-active");
-		activeCell.appendChild(activeCheckbox);
-
-		// Edit/Delete cell
-		var editButton = document.createElement("button");
-		editButton.classList.add("options-headers-table-edit");
-		editButton.addEventListener("click", editRow);
-		window.setText(editButton, "edit");
-
-		var deleteButton = document.createElement("button");
-		deleteButton.classList.add("options-headers-table-delete");
-		deleteButton.addEventListener("click", deleteRow);
-		window.setText(deleteButton, "delete");
-
-		var actionsCell = document.createElement("td");
-		actionsCell.classList.add("options-headers-table-actions");
-		actionsCell.appendChild(editButton);
-		actionsCell.appendChild(deleteButton);
-
+	window.createHeaderRow = function(uuid, headerType, headerData) {
 		// Create wrapping `<tr>`
 		var row = document.createElement("tr");
 		row.id = "header-" + uuid;
-		row.dataUuid = uuid;
-		row.appendChild(headerCell);
-		row.appendChild(valueCell);
-		row.appendChild(activeCell);
-		row.appendChild(actionsCell);
+		row.dataset[DATA.HEADER_TYPE] = headerType;
+		row.dataset[DATA.HEADER_UUID] = uuid;
+		row.appendChild(ELEMENTS.createHeaderCell(headerData.header));
+		row.appendChild(ELEMENTS.createValueCell(headerData.value));
+		row.appendChild(ELEMENTS.createActiveCell(headerData.active));
+		row.appendChild(ELEMENTS.createActionsCell());
 
 		return row;
 	};

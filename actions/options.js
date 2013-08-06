@@ -69,7 +69,7 @@
 		// Insert existing headers
 		for (var uuid in headers) {
 			if (headers.hasOwnProperty(uuid)) {
-				headersTableBody.appendChild(window.createHeaderRow(uuid, headers[uuid].header, headers[uuid].value, headers[uuid].active));
+				headersTableBody.appendChild(window.createHeaderRow(uuid, "request", headers[uuid]));
 			}
 		}
 
@@ -79,15 +79,17 @@
 			headers = window.getRequestHeaders();
 
 			var uuid = window.generateUuid();
-			var header = createHeader.value;
-			var value = createValue.value;
-			var active = createActive.checked;
+			var headerData = {
+				header: createHeader.value,
+				value: createValue.value,
+				active: createActive.checked
+			};
 
 			// Display the new header in the list of headers
-			headersTableBody.appendChild(window.createHeaderRow(uuid, header, value, active));
+			headersTableBody.appendChild(window.createHeaderRow(uuid, "request", headerData));
 
 			// Persist the new header
-			headers[uuid] = {header: header, value: value, active: active};
+			headers[uuid] = headerData;
 			window.setRequestHeaders(headers);
 
 			// Clear create header form
@@ -100,13 +102,49 @@
 	// Setup response headers "page"
 	(function() {
 		var headers = window.getResponseHeaders();
+		var headersTableBody = document.getElementById("options-response-headers-table-body");
 		var addButton = document.getElementById("options-response-headers-table-add");
+		var createHeader = document.getElementById("options-response-headers-table-create-header");
+		var createValue = document.getElementById("options-response-headers-table-create-value");
+		var createActive = document.getElementById("options-response-headers-table-create-active");
 
 		// Setup text
 		window.setText("options-response-headers-table-header", "header");
 		window.setText("options-response-headers-table-value", "value");
 		window.setText("options-response-headers-table-active", "active");
 		window.setText(addButton, "add");
+
+		// Insert response headers
+		for (var uuid in headers) {
+			if (headers.hasOwnProperty(uuid)) {
+				headersTableBody.appendChild(window.createHeaderRow(uuid, "response", headers[uuid]));
+			}
+		}
+
+		// Setup response header add button
+		addButton.addEventListener("click", function() {
+			// Get current headers
+			headers = window.getResponseHeaders();
+
+			var uuid = window.generateUuid();
+			var headerData = {
+				header: createHeader.value,
+				value: createValue.value,
+				active: createActive.checked
+			};
+
+			// Append the header row to the response table
+			headersTableBody.appendChild(window.createHeaderRow(uuid, "response", headerData));
+
+			// Persist header
+			headers[uuid] = headerData;
+			window.setResponseHeaders(headers);
+
+			// Clear add header form
+			createHeader.value = "";
+			createValue.value = "";
+			createActive.checked = true;
+		});
 	})();
 
 	// Setup about "page"

@@ -10,7 +10,7 @@
 	"permissions": [
 		"webRequest",
 		"webRequestBlocking",
-		"*://*/"
+		"<all_urls>"
 	],
 
 	"browser_action": {

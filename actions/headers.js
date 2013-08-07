@@ -35,7 +35,7 @@
 			return {requestHeaders: details.requestHeaders};
 		};
 
-		var filter = {urls: ["http://*/*", "https://*/*"]};
+		var filter = {urls: ["<all_urls>"]};
 		var extra = ["requestHeaders", "blocking"];
 
 		chrome.webRequest.onBeforeSendHeaders.addListener(modifyHeaders, filter, extra);
@@ -71,7 +71,7 @@
 			return {responseHeaders: details.responseHeaders};
 		};
 
-		var filter = {urls: ["http://*/*", "https://*/*"]};
+		var filter = {urls: ["<all_urls>"]};
 		var extra = ["responseHeaders", "blocking"];
 
 		chrome.webRequest.onHeadersReceived.addListener(modifyResponse, filter, extra);

@@ -1,0 +1,13 @@
+
+body {
+	min-width: 100px;
+	overflow-x: hidden;
+	text-align: center;
+	color: #333;
+}
+
+a {
+	color: #333;
+	outline: transparent;
+}
+

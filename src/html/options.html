@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title data-text="options_head_title"></title>
+	
+		<link rel="stylesheet" type="text/css" href="/src/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="/src/css/options.css" />
+
+		<script type="text/javascript" src="/lib/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="/lib/underscore-1.6.0.js"></script>
+		<script type="text/javascript" src="/lib/backbone-1.1.2.js"></script>
+		<script type="text/javascript" src="/lib/backbone.localStorage-1.1.7.js"></script>
+		<script type="text/javascript" src="/src/js/common.js"></script>
+		<script type="text/javascript" src="/src/js/options.js"></script>
+	</head>
+	<body id="body">
+		<div id="options">
+			<h2 id="options-title" data-text="options_title"></h2>
+			<div id="options-left">
+				<nav id="options-navigation">
+					<ul id="options-navigation-list">
+						<li><a href="#request" data-text="navigation_request"></a></li>
+						<li><a href="#response" data-text="navigation_response"></a></li>
+						<li><a href="#about" data-text="navigation_about"></a></li>
+					</ul>
+				</nav>
+			</div>
+			<div id="options-right">
+				<div id="options-pane">
+					<div id="options-request">
+						<h2 data-text="request_title"></h2>
+						<hr />
+						<div class="options-headers-page">
+							<table class="options-headers-table">
+								<thead>
+									<tr>
+										<th data-text="headers_header"></th>
+										<th data-text="headers_value"></th>
+										<th data-text="headers_active"></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><label><input type="text" class="options-headers-create-header"  /></label></td>
+										<td><label><input type="text" class="options-headers-create-value" /></label></td>
+										<td><label><input type="checkbox" class="options-headers-create-active"  checked="true" /></label></td>
+										<td><button class="options-headers-create-add" data-text="headers_add"></button></td>
+									</tr>
+									<tr><td colspan="4"><hr /></td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="options-response">
+						<h2 data-text="response_title"></h2>
+						<hr />
+						<div class="options-headers-page">
+						<!-- TODO: Extract into template -->
+							<table class="options-headers-table">
+								<thead>
+									<tr>
+										<th data-text="headers_header"></th>
+										<th data-text="headers_value"></th>
+										<th data-text="headers_active"></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><label><input type="text" class="options-headers-create-header"  /></label></td>
+										<td><label><input type="text" class="options-headers-create-value" /></label></td>
+										<td><label><input type="checkbox" class="options-headers-create-active"  checked="true" /></label></td>
+										<td><button class="options-headers-create-add" data-text="headers_add"></button></td>																													</tr>
+									<tr><td colspan="4"><hr /></td></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div id="options-about">
+						<h2 data-text="about_title"></h2>
+						<hr />
+
+						<p data-text="about_extension"></p>
+						<p data-text="about_support"></p>
+						<p data-text="about_author"></p>
+
+						<h3 data-text="about_attributions"></h3>
+
+						<ul>
+							<li data-text="about_attributions_icon"></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

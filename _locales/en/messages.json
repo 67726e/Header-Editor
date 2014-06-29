@@ -1,73 +1,68 @@
 {
-	"about": {
-		"message": "About"
+	"options_head_title": {
+		"message": "Options | Header-Editor"
 	},
-
-	"aboutAttributions": {
-		"message": "Attributions"
-	},
-
-	"aboutAttributionsIcon": {
-		"message": "Pencil icon provided by <a href=\"http://www.designcontest.com/\" target='_blank'>Design Contest</a> on CC Attribution 3.0 @ <a href=\"http://www.iconarchive.com/show/outline-icons-by-designcontest/Pencil-icon.html\" target='_blank'>Icon Archive</a>"
-	},
-
-	"aboutAuthor": {
-		"message": "This extension was written by <a href='http://hexcoder.us/' target='_blank'>Glenn Nelson</a>. You can also follow him on Twitter <a href='https://twitter.com/67726e' target='_blank'/>@67726e</a>."
-	},
-
-	"aboutExtension": {
-		"message": "Header-Editor is a Chrome extension that allows you to easily insert HTTP headers into your requests."
-	},
-
-	"aboutSupport": {
-		"message": "For questions, issues, or feature requests, please see the Header-Editor <a href='https://github.com/67726e/Header-Editor' target='_blank'>GitHub repository</a>."
-	},
-
-	"add": {
-		"message": "Add"
-	},
-
-	"active": {
-		"message": "Active"
-	},
-
-	"cancel": {
-		"message": "Cancel"
-	},
-
-	"delete": {
-		"message": "Delete"
-	},
-
-	"edit": {
-		"message": "Edit"
-	},
-
-	"header": {
-		"message": "Header"
-	},
-
-	"headers": {
-		"message": "Headers"
-	},
-
-	"request": {
-		"message": "Request"
-	},
-
-	"response": {
-		"message": "Response"
-	},
-
-	"save": {
-		"message": "Save"
-	},
-
-	"title": {
+	"options_title": {
 		"message": "Header-Editor"
 	},
 
-	"value": {
+
+
+	"navigation_request": {
+		"message": "Request"	
+	},
+	"navigation_response": {
+		"message": "Response"
+	},
+	"navigation_about": {
+		"message": "About"
+	},
+
+
+	
+	"headers_header": {
+		"message": "Header"	
+	},
+	"headers_value": {
 		"message": "Value"
+	},
+	"headers_active": {
+		"message": "Active"
+	},
+	"headers_add": {
+		"message": "Add"
+	},
+
+
+
+	"request_title": {
+		"message": "Request"
+	},
+
+
+
+	"response_title": {
+		"message": "Response"
+	},
+
+
+
+	"about_title": {
+		"message": "About"
+	},
+	"about_extension": {
+		"message": "Header-Editor is a Chrome extension that allows you to easily insert HTTP headers into your requests."
+	},
+	"about_support": {
+		"message": "For questions, issues, or feature requests, please see the Header-Editor <a href=\"https://github.com/67726e/Header-Editor\" target=\"_blank\">GitHub repository</a>."
+	},
+	"about_author": {
+		"message": "This extension was written by <a href='http://hexcoder.us/' target='_blank'>Glenn Nelson</a>. You can also follow him on Twitter <a href='https://twitter.com/67726e' target='_blank'>@67726e</a>."
+	},
+	"about_attributions": {
+		"message": "Attributions"
+	},
+	"about_attributions_icon": {
+		"message": "Pencil icon provided by <a href=\"http://www.designcontest.com/\" target='_blank'>Design Contest</a> on CC Attribution 3.0 @ <a href=\"http://www.iconarchive.com/show/outline-icons-by-designcontest/Pencil-icon.html\" target='_blank'>Icon Archive</a>"
 	}
 }

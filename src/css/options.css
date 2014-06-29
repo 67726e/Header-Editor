@@ -1,0 +1,86 @@
+
+#options {
+	width: 1024px;
+	margin: 0 auto;
+}
+
+#options-title {
+	line-height: 48px;
+	padding: 0 0 0 50px;
+	background: transparent url("/resources/images/pencil-icon_48.png") 0 0 no-repeat;
+}
+
+#options-left {
+	float: left;
+	width: 200px;
+}
+
+#options-right {
+	float: right;
+	width: 800px;
+}
+
+/* Options Navigation */
+
+#options-navigation-list {
+	list-style: none;
+}
+
+#options-navigation-list > li {
+	margin: 5px 0 5px 0;
+}
+
+#options-navigation-list > li > a {
+	text-decoration: none;
+	cursor: pointer;
+	color: #888;
+}
+
+#options-navigation-list > li > a:hover {
+	color: #333;
+}
+
+/* Options Content Common */
+
+#options-request, #options-response, #options-about {
+	display: none;
+}
+
+.options-headers-page {
+	margin: 30px 0;
+}
+
+.options-headers-table {
+	width: 95%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.options-headers-table th {
+	width: 25%;
+}
+
+.options-header-cell {
+	position: relative;
+}
+
+.options-headers-row:hover .options-header-input, .options-header-input:focus {
+	display: block;
+}
+
+.options-header-input {
+	position: absolute;
+	display: none;
+	left: 0;
+	top: 0;
+}
+
+/* Options Request */
+
+/* Options Response */
+
+/* Options About */
+
+
+
+

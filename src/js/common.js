@@ -10,6 +10,7 @@ var HeaderSDK = {
 	HeaderSDK.Models.Header = Backbone.Model.extend({
 		defaults: function() {
 			return {
+				description: "",
 				header: "",
 				value: "",
 				active: true
@@ -43,6 +44,15 @@ var HeaderSDK = {
 		},
 		render: function() {
 			// TODO: Consider a templating engine for this
+			var $descriptionCell = $(document.createElement("td"))
+				.append(this.model.get("description"))
+				.append($(document.createElement("input"))
+					.attr("type", "text")
+					.attr("name", "description")
+					.val(this.model.get("description"))
+					.addClass("options-header-input"))
+				.addClass("options-header-cell");
+
 			var $headerCell = $(document.createElement("td"))
 				.append(this.model.get("header"))
 				.append($(document.createElement("input"))
@@ -78,6 +88,7 @@ var HeaderSDK = {
 
 			// TODO: Figure out why this is called twice on add
 			this.$el.empty();
+			this.$el.append($descriptionCell);
 			this.$el.append($headerCell);
 			this.$el.append($valueCell);
 			this.$el.append($activeCell);
@@ -92,7 +103,7 @@ var HeaderSDK = {
 		},
 		updateHeader: function(event) {
 			var $input = $(event.target);
-			
+
 			var name = $input.attr("name");
 			var value = $input.val();
 			var data = {};

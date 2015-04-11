@@ -20,6 +20,9 @@
 
 
 	
+  "headers_description": {
+    "message": "Description"
+  },
 	"headers_header": {
 		"message": "Header"	
 	},

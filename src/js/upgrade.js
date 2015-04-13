@@ -12,6 +12,12 @@
 	}
 
 	var compareVersions = function(left, right) {
+		console.log(left, right);
+
+		if (!left || !right) {
+			return;
+		}
+
 		var leftBlocks = left.split(".").map(function(number) { return parseInt(number, 10); });
 		var rightBlocks = right.split(".").map(function(number) { return parseInt(number, 10); });
 		
@@ -85,41 +91,32 @@
 
 	// Methods for updating user data to include descriptions
 	function update_2_2_0() {
-		function getHeaders(key) {
-			var json = localStorage.getItem(key);
-			return (!!json) ? JSON.parse(json) : {};
-		}
+		function updateHeaders(headerKeys, headerPrefix) {
+			console.log(headerKeys);
 
-		var requestHeaders = getHeaders("headers");
-		var responseHeaders = getHeaders("response-headers");
+			for (var i = 0; i < headerKeys.length; i++) {
+				var headerKey = headerPrefix + headerKeys[i];
+				var header = JSON.parse(localStorage.getItem(headerKey));
 
-		// Since we don't want to include Backbone and all of the dependencies, we'll manually create and serialize the JSON
-		function convertHeaders(headers, headerKey) {
-			var headersList = [];
+				console.log(headerPrefix, headerKey);
 
-			for (var key in headers) {
-				if (headers.hasOwnProperty(key)) {
-					var header = headers[key];
-					var headerId = uuid();
-					headersList.push(headerId);
+				// Create the new header field if one does not exist
+				header.description = header.description || "";
 
-					localStorage.setItem(headerKey + headerId, JSON.stringify({
-						id: headerId,
-						description: header.description || "",
-						header: header.header || "",
-						value: header.value || "",
-						// Only set as inactive if explicitly false
-						active: (header.active === false) ? false : true
-					}));
-				}
+				localStorage.setItem(headerKey, JSON.stringify(header));
 			}
-
-			// Format is <UUID>[,<UUID>]
-			return headersList.join(",");
 		}
 
-		localStorage.setItem("backbone.requestHeaders", convertHeaders(requestHeaders, "backbone.requestHeaders-"));
-		localStorage.setItem("backbone.responseHeaders", convertHeaders(responseHeaders, "backbone.responseHeaders-"));
+		var requestHeaders = localStorage.getItem("backbone.requestHeaders");
+		var responseHeaders = localStorage.getItem("backbone.requestHeaders");
+
+		if (!!requestHeaders) {
+			updateHeaders(requestHeaders.split(","), "backbone.requestHeaders-");
+		}
+
+		if (!!responseHeaders) {
+			updateHeaders(responseHeaders.split(","), "backbone.responseHeaders-");
+		}
 	}
 
 	chrome.runtime.onInstalled.addListener(function(details) {
@@ -127,6 +124,10 @@
 		var currentVersion = chrome.app.getDetails().version;
 
 		if (0 > compareVersions(previousVersion, currentVersion)) {
+			if (0 > compareVersions(previousVersion, "2.1.0")) {
+				update_2_1_0();
+			}
+
 			if (0 > compareVersions(previousVersion, "2.2.0")) {
 				update_2_2_0();
 			}

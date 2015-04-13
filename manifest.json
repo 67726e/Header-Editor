@@ -1,5 +1,5 @@
 {
-	"manifest_version": 3,
+	"manifest_version": 2,
 	"name": "Header-Editor",
 	"description": "Alter your HTTP request headers on the fly",
 	"version": "2.2.0",

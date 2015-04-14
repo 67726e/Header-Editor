@@ -20,18 +20,18 @@
 
 
 	
-  "headers_description": {
-    "message": "Description"
-  },
 	"headers_header": {
 		"message": "Header"	
 	},
 	"headers_value": {
 		"message": "Value"
 	},
-	"headers_active": {
-		"message": "Active"
-	},
+  "headers_description": {
+    "message": "Description"
+  },
+  "headers_active": {
+    "message": "Active"
+  },
 	"headers_add": {
 		"message": "Add"
 	},

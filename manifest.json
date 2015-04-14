@@ -1,8 +1,8 @@
 {
-	"manifest_version": 3,
+	"manifest_version": 4,
 	"name": "Header-Editor",
 	"description": "Alter your HTTP request headers on the fly",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"default_locale": "en",
 
 	"options_page": "/src/html/options.html",

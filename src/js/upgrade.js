@@ -45,46 +45,8 @@
 		return 0;
 	};
 
-	// Methods for updating user data
-	function update_2_1_0() {
-		function getHeaders(key) {
-			var json = localStorage.getItem(key);
-			return (!!json) ? JSON.parse(json) : {};
-		}
-
-		var requestHeaders = getHeaders("headers");
-		var responseHeaders = getHeaders("response-headers");
-
-		// Since we don't want to include Backbone and all of the dependencies, we'll manually create and serialize the JSON
-		function convertHeaders(headers, headerKey) {
-			var headersList = []; 
-
-			for (var key in headers) {
-				if (headers.hasOwnProperty(key)) {
-					var header = headers[key];
-					var headerId = uuid();
-					headersList.push(headerId);
-
-					localStorage.setItem(headerKey + headerId, JSON.stringify({
-						id: headerId,
-						header: header.header || "",
-						value: header.value || "",
-						// Only set as inactive if explicitly false
-						active: (header.active === false) ? false : true
-					}));
-				}
-			}
-
-			// Format is <UUID>[,<UUID>]
-			return headersList.join(","); 
-		}
-
-		localStorage.setItem("backbone.requestHeaders", convertHeaders(requestHeaders, "backbone.requestHeaders-"));
-		localStorage.setItem("backbone.responseHeaders", convertHeaders(responseHeaders, "backbone.responseHeaders-"));
-	}
-
 	// Methods for updating user data to include descriptions
-	function update_2_2_0() {
+	function update_2_3_0() {
 		function getHeaders(key) {
 			var json = localStorage.getItem(key);
 			return (!!json) ? JSON.parse(json) : {};
@@ -105,9 +67,9 @@
 
 					localStorage.setItem(headerKey + headerId, JSON.stringify({
 						id: headerId,
-						description: header.description || "",
 						header: header.header || "",
 						value: header.value || "",
+						description: header.description || "",
 						// Only set as inactive if explicitly false
 						active: (header.active === false) ? false : true
 					}));
@@ -127,8 +89,8 @@
 		var currentVersion = chrome.app.getDetails().version;
 
 		if (0 > compareVersions(previousVersion, currentVersion)) {
-			if (0 > compareVersions(previousVersion, "2.2.0")) {
-				update_2_2_0();
+			if (0 > compareVersions(previousVersion, "2.3.0")) {
+				update_2_3_0();
 			}
 		}
 	});

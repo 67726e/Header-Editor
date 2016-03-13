@@ -29,6 +29,9 @@
 	"headers_value": {
 		"message": "Value"
 	},
+	"headers_pattern": {
+		"message": "URL Pattern"
+	},
 	"headers_active": {
 		"message": "Active"
 	},

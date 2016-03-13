@@ -1,13 +1,14 @@
 
 (function() {
-	var transformHeaders = function(headers) {
+	var transformHeaders = function(headers, details) {
 		// [ { name: "", value: "" } ]
 		var list = [];
 	
 		for (var i = 0; i < headers.length; i++) {
 			var header = headers[i];
-
-			if (header.active) {
+			
+			var isMatching = details.url.match(header.pattern);
+			if (header.active && isMatching) {
 				list.push({
 					name: header.header,
 					value: header.value
@@ -36,7 +37,7 @@
 		var EXTRAS = ["requestHeaders", "blocking"];
 
 		var modify = function(details) {
-			details.requestHeaders = details.requestHeaders.concat(transformHeaders(getHeaders(/^backbone\.requestHeaders.+$/)));
+			details.requestHeaders = details.requestHeaders.concat(transformHeaders(getHeaders(/^backbone\.requestHeaders.+$/), details));
 			
 			return { requestHeaders: details.requestHeaders };
 		};
@@ -50,7 +51,7 @@
 		var EXTRAS = ["responseHeaders", "blocking"];
 		
 		var modify = function(details) {
-			details.responseHeaders = details.responseHeaders.concat(transformHeaders(getHeaders(/^backbone\.responseHeaders.+$/)));
+			details.responseHeaders = details.responseHeaders.concat(transformHeaders(getHeaders(/^backbone\.responseHeaders.+$/), details));
 
 			return { responseHeaders: details.responseHeaders };
 		};

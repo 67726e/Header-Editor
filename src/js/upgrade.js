@@ -119,6 +119,36 @@
 		}
 	}
 
+	// Methods for updating pattern matching
+	function update_2_3_0() {
+		function updateHeaders(headerKeys, headerPrefix) {
+			console.log(headerKeys);
+
+			for (var i = 0; i < headerKeys.length; i++) {
+				var headerKey = headerPrefix + headerKeys[i];
+				var header = JSON.parse(localStorage.getItem(headerKey));
+
+				console.log(headerPrefix, headerKey);
+
+				// Create the new header field if one does not exist
+				header.pattern = header.pattern || ".*";
+
+				localStorage.setItem(headerKey, JSON.stringify(header));
+			}
+		}
+
+		var requestHeaders = localStorage.getItem("backbone.requestHeaders");
+		var responseHeaders = localStorage.getItem("backbone.requestHeaders");
+
+		if (!!requestHeaders) {
+			updateHeaders(requestHeaders.split(","), "backbone.requestHeaders-");
+		}
+
+		if (!!responseHeaders) {
+			updateHeaders(responseHeaders.split(","), "backbone.responseHeaders-");
+		}
+	}
+	
 	chrome.runtime.onInstalled.addListener(function(details) {
 		var previousVersion = details.previousVersion;
 		var currentVersion = chrome.app.getDetails().version;
@@ -130,6 +160,10 @@
 
 			if (0 > compareVersions(previousVersion, "2.2.0")) {
 				update_2_2_0();
+			}
+			
+			if (0 > compareVersions(previousVersion, "2.3.0")) {
+				update_2_3_0();
 			}
 		}
 	});

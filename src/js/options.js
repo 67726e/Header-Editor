@@ -48,6 +48,7 @@
 			this.$createDescription = this.$el.find(".options-headers-create-description");
 			this.$createHeader = this.$el.find(".options-headers-create-header");
 			this.$createValue = this.$el.find(".options-headers-create-value");
+			this.$createPattern = this.$el.find(".options-headers-create-pattern");
 			this.$createActive = this.$el.find(".options-headers-create-active");
 
 			this.listenTo(this.headers, "add", this.renderSingle);
@@ -74,12 +75,14 @@
 				description: this.$createDescription.val(),
 				header: this.$createHeader.val(),
 				value: this.$createValue.val(),
+				pattern: this.$createPattern.val(),
 				active: this.$createActive.is(":checked")
 			});
 
 			this.$createDescription.val("");
 			this.$createHeader.val("");
 			this.$createValue.val("");
+			this.$createPattern.val(".*");
 			this.$createActive.prop("checked", true);
 		}
 	});

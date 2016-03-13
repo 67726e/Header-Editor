@@ -13,6 +13,7 @@ var HeaderSDK = {
 				description: "",
 				header: "",
 				value: "",
+				pattern: ".*",
 				active: true
 			};
 		}
@@ -70,6 +71,15 @@ var HeaderSDK = {
 					.val(this.model.get("value"))
 					.addClass("options-header-input"))
 				.addClass("options-header-cell");
+				
+			var $patternCell = $(document.createElement("td"))
+				.append(this.model.get("pattern"))
+				.append($(document.createElement("input"))
+					.attr("type", "text")
+					.attr("name", "pattern")
+					.val(this.model.get("pattern"))
+					.addClass("options-header-input"))
+				.addClass("options-header-cell");
 			
 			var $activeCell = $(document.createElement("td"))
 				.append($(document.createElement("input"))
@@ -91,6 +101,7 @@ var HeaderSDK = {
 			this.$el.append($descriptionCell);
 			this.$el.append($headerCell);
 			this.$el.append($valueCell);
+			this.$el.append($patternCell);
 			this.$el.append($activeCell);
 			this.$el.append($actionCell);
 

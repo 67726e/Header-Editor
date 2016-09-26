@@ -47,7 +47,7 @@
 
 			this.$createDescription = this.$el.find(".options-headers-create-description");
 			this.$createHeader = this.$el.find(".options-headers-create-header");
-			this.$createValue = this.$el.find(".options-headers-create-value");
+			this.$createValue = escape(this.$el.find(".options-headers-create-value"));
 			this.$createActive = this.$el.find(".options-headers-create-active");
 
 			this.listenTo(this.headers, "add", this.renderSingle);
@@ -73,7 +73,7 @@
 			this.headers.create({
 				description: this.$createDescription.val(),
 				header: this.$createHeader.val(),
-				value: this.$createValue.val(),
+				value: escape(this.$createValue.val()),
 				active: this.$createActive.is(":checked")
 			});
 

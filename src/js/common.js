@@ -49,7 +49,7 @@ var HeaderSDK = {
 				.append($(document.createElement("input"))
 					.attr("type", "text")
 					.attr("name", "description")
-					.val(this.model.get("description"))
+					.val(escape(this.model.get("description")))
 					.addClass("options-header-input"))
 				.addClass("options-header-cell");
 
@@ -58,7 +58,7 @@ var HeaderSDK = {
 				.append($(document.createElement("input"))
 					.attr("type", "text")
 					.attr("name", "header")
-					.val(this.model.get("header"))
+					.val(escape(this.model.get("header")))
 					.addClass("options-header-input"))
 				.addClass("options-header-cell");
 			
@@ -67,7 +67,7 @@ var HeaderSDK = {
 				.append($(document.createElement("input"))
 					.attr("type", "text")
 					.attr("name", "value")
-					.val(this.model.get("value"))
+					.val(escape(this.model.get("value")))
 					.addClass("options-header-input"))
 				.addClass("options-header-cell");
 			
@@ -75,7 +75,7 @@ var HeaderSDK = {
 				.append($(document.createElement("input"))
 					.attr("type", "checkbox")
 					.attr("name", "active")
-					.prop("checked", this.model.get("active"))
+					.prop("checked", escape(this.model.get("active")))
 					.addClass("options-header-checkbox"))
 				.addClass("");
 			
@@ -105,7 +105,7 @@ var HeaderSDK = {
 			var $input = $(event.target);
 
 			var name = $input.attr("name");
-			var value = $input.val();
+			var value = escape($input.val());
 			var data = {};
 			data[name] = value;
 

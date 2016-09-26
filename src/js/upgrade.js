@@ -74,7 +74,7 @@
 					localStorage.setItem(headerKey + headerId, JSON.stringify({
 						id: headerId,
 						header: header.header || "",
-						value: header.value || "",
+						value: escape(header.value) || "",
 						// Only set as inactive if explicitly false
 						active: (header.active === false) ? false : true
 					}));

@@ -10,7 +10,7 @@
 			if (header.active) {
 				list.push({
 					name: header.header,
-					value: header.value
+					value: escape(header.value)
 				});
 			}
 		}
